@@ -1,6 +1,6 @@
-# Multitool
+# simpleBashMultitool
 
-A simple multitool script packaged as a macOS app. Provides utilities like file organization, ASCII art generation, and system info.
+A simple multitool coded in Bash, packaged as a macOS app. Provides utilities like file organization, ASCII art generation, and system info.
 
 ---
 
@@ -21,12 +21,33 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 
 ---
 
-### 2. Clone the repository
+### 2. Get the Multitool
+
+**Option A: Clone with Git**
 
 ```bash
 git clone https://github.com/CallMEbred/simpleBashMultitool.git
-cd multitool
+cd simpleBashMultitool
 ```
+
+**Option B: Download as ZIP**
+
+1. Go to the [repo page](https://github.com/CallMEbred/simpleBashMultitool).  
+2. Click the green **Code** button → **Download ZIP**.  
+3. Unzip it (double‑click in Finder).  
+4. (Optional) Wrap it into an `.app` bundle:  
+   - Open **Script Editor** on macOS.  
+   - Paste this AppleScript (adjust the path if needed):
+
+     ```applescript
+     tell application "Terminal"
+         do script "cd ~/Downloads/simpleBashMultitool && ./real_multitool.sh; exit"
+     end tell
+     ```
+
+   - Save as **Application** format, name it `Multitool.app`.  
+   - You can now launch the multitool by double‑clicking the app.  
+5. If you want a clean app‑only folder, you can delete the `README.md` file after unzipping.
 
 ---
 
@@ -39,6 +60,8 @@ Or install manually:
 ```bash
 brew install bc figlet
 ```
+
+(`top`, `df`, and `uptime` are built into macOS.)
 
 ---
 
@@ -75,76 +98,4 @@ command not found: brew
 Re‑install Homebrew:
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Then add it to your shell environment:
-
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
-
----
-
-### Permission denied when running the script
-
-```
-permission denied: ./real_multitool.sh
-```
-
-Fix with:
-
-```bash
-chmod +x real_multitool.sh
-```
-
----
-
-### macOS blocked the app
-
-If you see “can’t be opened because it is from an unidentified developer”:
-
-- Right‑click the app → **Open** → confirm.  
-- Or run:
-
-```bash
-xattr -d com.apple.quarantine /path/to/Multitool.app
-```
-
----
-
-### Dependencies still missing after install
-
-If the script still says something like `Missing: figlet`:
-
-- Make sure Homebrew’s bin directory is in your PATH:
-
-```bash
-echo $PATH
-```
-
-You should see `/opt/homebrew/bin` (Apple Silicon) or `/usr/local/bin` (Intel).
-
----
-
-### Fonts not showing up in ASCII Art Generator
-
-```bash
-brew install figlet-fonts
-```
-
-Restart the script and fonts should appear.
-
----
-
-### Still stuck?
-
-Run from inside the repo folder:
-
-```bash
-cd multitool
-./real_multitool.sh
-```
-
-If issues persist, open an [Issue](../../issues) with your OS version and error message.
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent
