@@ -43,7 +43,7 @@ cd simpleBashMultitool
 
      ```applescript
      tell application "Terminal"
-         do script "cd ~/Downloads/simpleBashMultitool-main && ./real_multitool.sh; exit"
+         do script "cd ~/Downloads/simpleBashMultitool-main/Content/MacOS && chmod +x real_multitool.sh && ./real_multitool.sh; exit"
      end tell
      ```
 
