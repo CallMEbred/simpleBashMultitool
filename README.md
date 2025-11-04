@@ -24,7 +24,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 ### 2. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/multitool.git
+git clone https://github.com/CallMEbred/simpleBashMultitool.git
 cd multitool
 ```
 
