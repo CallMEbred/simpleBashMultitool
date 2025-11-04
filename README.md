@@ -1,6 +1,6 @@
 # simpleBashMultitool
 
-A simple multitool coded in Bash. Provides utilities like file organization, ASCII art generation, and system info. Originally created as a school project.
+A simple multitool coded in Bash. Provides utilities like file organization, ASCII art generation, and system info. Originally created as a school project. If you don't know how to find the directory of a folder/file, [here](https://docs.google.com/document/d/1OCuflsL5FHdA4GXk_r_8HPb-b4pyu16xQrHuhSrAy9g/edit?usp=sharing) is a tutorial.
 
 ---
 
