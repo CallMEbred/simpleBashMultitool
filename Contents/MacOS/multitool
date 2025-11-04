@@ -1,1 +1,3 @@
+#!/bin/bash
+open -a Terminal "`dirname "$0"`/real_multitool.sh"
 
