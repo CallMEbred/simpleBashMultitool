@@ -4,7 +4,7 @@ A simple multitool coded in Bash. Provides utilities like file organization, ASC
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ### macOS
 
@@ -163,7 +163,7 @@ The multitool is a Bash script, so you’ll need a Unix‑like environment.
 
 ---
 
-## 🛠 Troubleshooting
+## Troubleshooting
 
 ### Homebrew not found (macOS)
 
