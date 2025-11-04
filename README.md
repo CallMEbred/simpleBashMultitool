@@ -39,11 +39,11 @@ cd simpleBashMultitool
 3. Unzip it (double‑click in Finder).  
 4. (Optional) Wrap into an `.app` bundle using Script Editor if you want a double‑clickable app:  
    - Open **Script Editor**.  
-   - Paste this AppleScript (adjust the path if needed):
+   - Paste this AppleScript (adjust the path/folder name if needed):
 
      ```applescript
      tell application "Terminal"
-         do script "cd ~/Downloads/simpleBashMultitool && ./real_multitool.sh; exit"
+         do script "cd ~/Downloads/simpleBashMultitool-main && ./real_multitool.sh; exit"
      end tell
      ```
 
