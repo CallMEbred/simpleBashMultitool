@@ -1,6 +1,11 @@
 # simpleBashMultitool
 
-A simple multitool coded in Bash. Provides utilities like file organization, ASCII art generation, and system info. Originally created as a school project. If you don't know how to find the directory of a folder/file, [here](https://docs.google.com/document/d/1OCuflsL5FHdA4GXk_r_8HPb-b4pyu16xQrHuhSrAy9g/edit?usp=sharing) is a tutorial.
+A Bash-based multitool with a simple menu interface. Current features include:
+
+- Calculator: Supports basic arithmetic, powers, square roots, trigonometric functions, logarithms, and exponentials (via `bc -l`).
+- File Organizer: Sorts files in a directory into subfolders by type (Images, Documents, Archives, Music, Videos, Others).
+- Messy Folder Generator: Creates a test folder with mixed file types on your Desktop for organizing practice.
+- Man Page Viewer: Displays manual pages for specified commands.
 
 ---
 
@@ -8,7 +13,7 @@ A simple multitool coded in Bash. Provides utilities like file organization, ASC
 
 ### macOS
 
-#### 1. Install [Homebrew](https://brew.sh) (if not already installed)
+#### 1. Install Homebrew (if not already installed)
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -21,70 +26,35 @@ echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 ```
 
----
+#### 2. Get the script
 
-#### 2. Get the Multitool
-
-**Option A: Clone with Git**
+Option A: Clone with Git
 
 ```bash
 git clone https://github.com/CallMEbred/simpleBashMultitool.git
 cd simpleBashMultitool
 ```
 
-**Option B: Download as ZIP**
+Option B: Download as ZIP
 
-1. Go to the [repo page](https://github.com/CallMEbred/simpleBashMultitool).  
+1. Go to the [repository page](https://github.com/CallMEbred/simpleBashMultitool).  
 2. Click the green **Code** button → **Download ZIP**.  
 3. Unzip it (double‑click in Finder).  
-4. (Optional) Wrap into an `.app` bundle using Script Editor if you want a double‑clickable app:  
-   - Open **Script Editor**.  
-   - Paste this AppleScript (adjust the path/folder name if needed):
-
-     ```applescript
-     tell application "Terminal"
-         do script "cd ~/Downloads/simpleBashMultitool-main && chmod +x multitool.sh && ./multitool.sh; exit"
-     end tell
-     ```
-
-   - Save as **Application** format, name it `Multitool.app`.  
-   - You can now launch the multitool by double‑clicking the app.  
-5. If you want a clean app‑only folder, delete the `README.md` file after unzipping.
-
----
+4. Move into the extracted folder.
 
 #### 3. Install dependencies
 
-Run the script once — it will check for required tools (`bc`, `figlet`, `top`, `df`, `uptime`) and prompt to install them if missing.
-
-Or install manually:
-
 ```bash
-brew install bc figlet
+brew install bc
 ```
 
-(`top`, `df`, and `uptime` are built into macOS.)
+(`man` is built into macOS.)
 
----
-
-#### 4. Unquarantine the app (if needed)
-
-If you downloaded `Multitool.app` directly, macOS may block it. To remove the quarantine flag:
+#### 4. Run the script
 
 ```bash
-xattr -d com.apple.quarantine /path/to/Multitool.app
-```
-
----
-
-#### 5. Run Multitool
-
-- If you’re using the `.app` bundle: double‑click **Multitool.app** in Finder.  
-- If you’re running the script directly:
-
-```bash
-chmod +x real_multitool.sh
-./real_multitool.sh
+chmod +x tooltest.sh
+./tooltest.sh
 ```
 
 ---
@@ -97,22 +67,22 @@ On Debian/Ubuntu:
 
 ```bash
 sudo apt update
-sudo apt install git bc figlet
+sudo apt install git bc man-db
 ```
 
 On Fedora:
 
 ```bash
-sudo dnf install git bc figlet
+sudo dnf install git bc man-db
 ```
 
 On Arch:
 
 ```bash
-sudo pacman -S git bc figlet
+sudo pacman -S git bc man-db
 ```
 
-#### 2. Get the Multitool
+#### 2. Get the script
 
 ```bash
 git clone https://github.com/CallMEbred/simpleBashMultitool.git
@@ -121,144 +91,78 @@ cd simpleBashMultitool
 
 Or download the ZIP from GitHub and extract it.
 
-#### 3. Run Multitool
+#### 3. Run the script
 
 ```bash
-chmod +x real_multitool.sh
-./real_multitool.sh
+chmod +x tooltest.sh
+./tooltest.sh
 ```
 
 ---
 
 ### Windows
 
-The multitool is a Bash script, so you’ll need a Unix‑like environment.
+This script requires a Unix‑like shell.
 
-#### Option A: Windows Subsystem for Linux (WSL) — Recommended
+Option A: Windows Subsystem for Linux (WSL) — Recommended
 
-1. [Install WSL](https://learn.microsoft.com/windows/wsl/install).  
+1. Install WSL: [Microsoft guide](https://learn.microsoft.com/windows/wsl/install).  
 2. Open your Linux terminal (Ubuntu, Debian, etc.).  
-3. Follow the **Linux instructions** above (install dependencies, clone repo, run script).
+3. Follow the Linux instructions above.
 
-#### Option B: Git Bash (simpler, but limited)
+Option B: Git Bash (simpler, but limited)
 
 1. Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash).  
-2. Open **Git Bash**.  
-3. Clone the repo:
+2. Open Git Bash.  
+3. Clone the repository:
 
    ```bash
    git clone https://github.com/CallMEbred/simpleBashMultitool.git
    cd simpleBashMultitool
    ```
 
-4. Install dependencies manually:  
-   - `bc` and `figlet` are not included in Git Bash by default.  
-   - You can try installing them with [Chocolatey](https://chocolatey.org/) or use WSL for full compatibility.
-
-5. Run the script:
+4. Run the script:
 
    ```bash
-   ./real_multitool.sh
+   ./tooltest.sh
    ```
+
+Note: Some features (such as `man`) may not work in Git Bash. WSL is recommended for full compatibility.
+
+---
+
+## Usage
+
+When you run the script, you will see a menu:
+
+```
+tool test
+
+1) Calculator
+2) File Organizer
+3) (temp) runs man command for specified command
+```
+
+- Type `1` → Calculator (supports +, -, *, /, ^, sqrt, trig functions, logs, exponentials).  
+- Type `2` → File Organizer (sorts files into Images, Documents, Archives, Music, Videos, Others).  
+- Type `messy` → Creates a messy test folder on your Desktop with mixed files.  
+- Type `3` → View man pages for a command.  
+- Type `e` → Exit.  
+- Type `r` → Restart the script.  
 
 ---
 
 ## Troubleshooting
 
-### Homebrew not found (macOS)
-
-```
-command not found: brew
-```
-
-Re‑install Homebrew:
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Then add it to your shell environment:
-
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
+- `permission denied: ./tooltest.sh` → Run `chmod +x tooltest.sh` first.  
+- `command not found: bc` → Install `bc` with your package manager (`brew install bc`, `sudo apt install bc`, etc.).  
+- `man` not working → Install `man-db` on Linux. Git Bash may not support `man`.  
+- Messy folder not created → Check that your Desktop path is correct (`~/Desktop`).  
+- Files not organizing correctly → Ensure you typed the correct directory path and have permission to move files.
 
 ---
 
-### Permission denied when running the script
+## About
 
-```
-permission denied: ./real_multitool.sh
-```
-
-Fix with:
-
-```bash
-chmod +x real_multitool.sh
-```
-
----
-
-### macOS blocked the app
-
-If you see “can’t be opened because it is from an unidentified developer”:
-
-- Right‑click the app → **Open** → confirm.  
-- Or run:
-
-```bash
-xattr -d com.apple.quarantine /path/to/Multitool.app
-```
-
----
-
-### Dependencies still missing after install
-
-If the script still says something like `Missing: figlet`:
-
-- Make sure your package manager’s bin directory is in your PATH:
-
-```bash
-echo $PATH
-```
-
-On macOS you should see `/opt/homebrew/bin` (Apple Silicon) or `/usr/local/bin` (Intel).  
-On Linux, ensure `/usr/bin` or `/usr/local/bin` is present.
-
----
-
-### Fonts not showing up in ASCII Art Generator
-
-On macOS:
-
-```bash
-brew install figlet-fonts
-```
-
-On Linux (Debian/Ubuntu):
-
-```bash
-sudo apt install figlet
-```
-
-Restart the script and fonts should appear.
-
----
-
-### Still stuck?
-
-Run from inside the repo folder:
-
-```bash
-cd simpleBashMultitool
-./real_multitool.sh
-```
-
-If issues persist, open an [Issue](https://github.com/CallMEbred/simpleBashMultitool/issues) with your OS version and error message.
-
----
-
-## 📖 About
-
-This project was built as a school project to explore Bash scripting and packaging scripts as macOS apps.
+This project is a learning exercise in Bash scripting, menu systems, and file organization.  
+It is designed to be simple, portable, and a foundation for adding more tools in the future.
