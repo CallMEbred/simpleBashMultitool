@@ -2,7 +2,7 @@
 
 A Bash-based multitool with a simple menu interface. Current features include:
 
-- Calculator: Supports basic arithmetic, powers, square roots, trigonometric functions, logarithms, and exponentials (via `bc -l`).
+- Calculator: Supports arithmetic, powers, square roots, trigonometric functions, logarithms, and exponentials (via `bc -l`).
 - File Organizer: Sorts files in a directory into subfolders by type (Images, Documents, Archives, Music, Videos, Others).
 - Messy Folder Generator: Creates a test folder with mixed file types on your Desktop for organizing practice.
 - Man Page Viewer: Displays manual pages for specified commands.
@@ -13,90 +13,85 @@ A Bash-based multitool with a simple menu interface. Current features include:
 
 ### macOS
 
-#### 1. Install Homebrew (if not already installed)
+1. Ensure you have Git installed (macOS includes it by default; if not, install via Xcode Command Line Tools).
+2. Get the script:
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+   ```bash
+   git clone https://github.com/CallMEbred/simpleBashMultitool.git
+   cd simpleBashMultitool
+   ```
 
-After installation, add Homebrew to your PATH (the installer will print the exact command). Usually:
+   Or download the ZIP from the [repository page](https://github.com/CallMEbred/simpleBashMultitool) and extract it.
 
-```bash
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-```
+3. Run the script:
 
-#### 2. Get the script
+   ```bash
+   chmod +x multitool.sh
+   ./multitool.sh
+   ```
 
-Option A: Clone with Git
+#### Creating a macOS Application Bundle (Optional)
 
-```bash
-git clone https://github.com/CallMEbred/simpleBashMultitool.git
-cd simpleBashMultitool
-```
+If you prefer to launch the multitool by double‑clicking an app icon:
 
-Option B: Download as ZIP
+1. Open **Script Editor** (Applications → Utilities → Script Editor).
+2. Paste the following AppleScript, adjusting the path to where your script is located:
 
-1. Go to the [repository page](https://github.com/CallMEbred/simpleBashMultitool).  
-2. Click the green **Code** button → **Download ZIP**.  
-3. Unzip it (double‑click in Finder).  
-4. Move into the extracted folder.
+   ```applescript
+   tell application "Terminal"
+       do script "cd ~/Downloads/simpleBashMultitool && chmod +x multitool.sh && ./multitool.sh; exit"
+   end tell
+   ```
 
-#### 3. Install dependencies
+3. Go to **File → Export…**.
+   - Set **File Format** to **Application**.
+   - Name it `Multitool.app`.
+   - Save it to your Applications folder or Desktop.
 
-```bash
-brew install bc
-```
+4. Double‑click `Multitool.app` to launch the multitool.  
+   If macOS blocks the app, remove the quarantine flag:
 
-(`man` is built into macOS.)
-
-#### 4. Run the script
-
-```bash
-chmod +x tooltest.sh
-./tooltest.sh
-```
+   ```bash
+   xattr -d com.apple.quarantine /path/to/Multitool.app
+   ```
 
 ---
 
 ### Linux
 
-#### 1. Install Git and dependencies
+1. Install Git and dependencies:
 
-On Debian/Ubuntu:
+   On Debian/Ubuntu:
+   ```bash
+   sudo apt update
+   sudo apt install git bc man-db
+   ```
 
-```bash
-sudo apt update
-sudo apt install git bc man-db
-```
+   On Fedora:
+   ```bash
+   sudo dnf install git bc man-db
+   ```
 
-On Fedora:
+   On Arch:
+   ```bash
+   sudo pacman -S git bc man-db
+   ```
 
-```bash
-sudo dnf install git bc man-db
-```
+2. Get the script:
 
-On Arch:
+   ```bash
+   git clone https://github.com/CallMEbred/simpleBashMultitool.git
+   cd simpleBashMultitool
+   ```
 
-```bash
-sudo pacman -S git bc man-db
-```
+   Or download the ZIP and extract it.
 
-#### 2. Get the script
+3. Run the script:
 
-```bash
-git clone https://github.com/CallMEbred/simpleBashMultitool.git
-cd simpleBashMultitool
-```
-
-Or download the ZIP from GitHub and extract it.
-
-#### 3. Run the script
-
-```bash
-chmod +x tooltest.sh
-./tooltest.sh
-```
+   ```bash
+   chmod +x multitool.sh
+   ./multitool.sh
+   ```
 
 ---
 
@@ -104,16 +99,16 @@ chmod +x tooltest.sh
 
 This script requires a Unix‑like shell.
 
-Option A: Windows Subsystem for Linux (WSL) — Recommended
+**Option A: Windows Subsystem for Linux (WSL) — Recommended**
 
-1. Install WSL: [Microsoft guide](https://learn.microsoft.com/windows/wsl/install).  
-2. Open your Linux terminal (Ubuntu, Debian, etc.).  
+1. Install WSL: [Microsoft guide](https://learn.microsoft.com/windows/wsl/install).
+2. Open your Linux terminal (Ubuntu, Debian, etc.).
 3. Follow the Linux instructions above.
 
-Option B: Git Bash (simpler, but limited)
+**Option B: Git Bash (simpler, but limited)**
 
-1. Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash).  
-2. Open Git Bash.  
+1. Install [Git for Windows](https://git-scm.com/download/win) (includes Git Bash).
+2. Open Git Bash.
 3. Clone the repository:
 
    ```bash
@@ -124,7 +119,7 @@ Option B: Git Bash (simpler, but limited)
 4. Run the script:
 
    ```bash
-   ./tooltest.sh
+   ./multitool.sh
    ```
 
 Note: Some features (such as `man`) may not work in Git Bash. WSL is recommended for full compatibility.
@@ -154,11 +149,12 @@ tool test
 
 ## Troubleshooting
 
-- `permission denied: ./tooltest.sh` → Run `chmod +x tooltest.sh` first.  
-- `command not found: bc` → Install `bc` with your package manager (`brew install bc`, `sudo apt install bc`, etc.).  
+- `permission denied: ./multitool.sh` → Run `chmod +x multitool.sh` first.  
+- `command not found: bc` → Install `bc` with your package manager (`sudo apt install bc`, `sudo dnf install bc`, etc.).  
 - `man` not working → Install `man-db` on Linux. Git Bash may not support `man`.  
 - Messy folder not created → Check that your Desktop path is correct (`~/Desktop`).  
-- Files not organizing correctly → Ensure you typed the correct directory path and have permission to move files.
+- Files not organizing correctly → Ensure you typed the correct directory path and have permission to move files.  
+- macOS blocked the app → Right‑click → Open, or run `xattr -d com.apple.quarantine /path/to/Multitool.app`.
 
 ---
 
