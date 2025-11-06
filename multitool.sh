@@ -1,14 +1,14 @@
 #!/bin/bash
-clear
 SCRIPT_PATH="$(realpath "$0")"
 # Resize terminal 
 printf '\033[8;30;85t'
 main(){
 
 while true; do
+clear
 echo "tool test"
 echo
-echo "1) Mini calculator (only addition)" 
+echo "1) Calculator" 
 echo "2) File Organizer"
 echo "3) (temp) runs man command for specified command"
 read -p "Choose an option: " option
@@ -21,7 +21,9 @@ case $option in
         echo "Exiting"
         exit 0;;
     r)exec "$SCRIPT_PATH";;
-    *) echo "Invalid option." ;;
+    *) echo "Invalid option." 
+        sleep 1
+    ;;
 esac
 done
 }
@@ -67,17 +69,34 @@ ete
 }
 
 option1(){
+while true; do
 clear
-echo "Calculator!"
-read -p "Enter first number or type back to return: " a
-if [ "$a" == "back" ]; then
+echo "Calculator"
+echo "Type "help" for instructions or "back" to return to menu."
+echo
+read -p "Calc> " input
+if [[ "$input" == "back" ]]; then
     clear
     return
+elif [[ "$input" == "Help" || "$input" == "help" ]]; then
+    echo "Basic arithmetic: +  -  *  /"
+    echo "Powers: ^"
+    echo "Square root: sqrt(x)"
+    echo "Sine: s(x)   (x in radians)"
+    echo "Cosine: c(x)"
+    echo "Arctangent: a(x)"
+    echo "Natural log: l(x)"
+    echo "Exponential: e(x)"
+    echo
+    read -p "Press Enter when ready to return..." _
+    clear
+    continue
 fi
-read -p "Enter second number:" b
-sum=$((a + b))
-echo "The sum is: $sum"
-ete
+result=$(echo "$input" | bc -l)
+echo "Result: $result"
+read -p "Press Enter to continue..." _
+clear
+done
 }
 option2(){
 clear
@@ -107,7 +126,7 @@ clear
     for file in "$dir"/*; do
         if [[ -f "$file" ]]; then
             case "$file" in
-                *.jpg|*.jpeg|*.png|*.gif|*.bm p) mv "$file" "$dir/Images/" ;;
+                *.jpg|*.jpeg|*.png|*.gif|*.bm) mv "$file" "$dir/Images/" ;;
                 *.pdf|*.doc|*.docx|*.txt|*.xls|*.xlsx|*.ppt|*.pptx) mv "$file" "$dir/Documents/" ;;
                 *.zip|*.tar|*.gz|*.rar) mv "$file" "$dir/Archives/" ;;
                 *.mp3|*.wav|*.flac) mv "$file" "$dir/Music/" ;;
