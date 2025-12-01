@@ -1,49 +1,133 @@
 #!/bin/bash
 SCRIPT_PATH="$(realpath "$0")"
+clear
 # Resize terminal 
 printf '\033[8;30;85t'
-main(){
 
+main(){
 while true; do
 clear
-echo "tool test"
+
+cat << "EOF"
+                  ___    __        __                   ___      
+ /'\_/`\         /\_ \  /\ \__  __/\ \__               /\_ \     
+/\      \  __  __\//\ \ \ \ ,_\/\_\ \ ,_\   ___     ___\//\ \    
+\ \ \__\ \/\ \/\ \ \ \ \ \ \ \/\/\ \ \ \/  / __`\  / __`\\ \ \   
+ \ \ \_/\ \ \ \_\ \ \_\ \_\ \ \_\ \ \ \ \_/\ \L\ \/\ \L\ \\_\ \_ 
+  \ \_\\ \_\ \____/ /\____\\ \__\\ \_\ \__\ \____/\ \____//\____\
+   \/_/ \/_/\/___/  \/____/ \/__/ \/_/\/__/\/___/  \/___/ \/____/                                                        
+═══════════════════════════════════════════════════════════════
+                    Created by Remi Heller
+═══════════════════════════════════════════════════════════════
+EOF
+
 echo
-echo "1) Calculator" 
-echo "2) File Organizer"
-echo "3) Run shell commands"
-read -p "Choose an option: " option
+echo "+-----------------------------------------------------------+"
+echo "|  [1] Calculator                                           |"
+echo "|  [2] File Organizer                                       |"
+echo "|  [3] Run Shell Commands                                   |"
+echo "|  [4] ASCII Word Art Generator                             |"
+echo "|                                                           |"
+echo "|  [messy] Create Messy Test Folder                         |"
+echo "|  [man]   View Man Pages                                   |"
+echo "|                                                           |"
+echo "|  [e]     Exit                                             |"
+echo "|  [r]     Restart Script                                   |"
+echo "+-----------------------------------------------------------+"
+echo
+read -p "Select an option: " option
 case $option in
     1) option1;;
     2) option2;;
     3) option3;;
+    4) option4;;
     messy) makemessy;;
     man) man;;
-    e)  clear
-        echo "Exiting"
-        exit 0;;
-    r)exec "$SCRIPT_PATH";;
-    *) echo "Invalid option." 
-        sleep 1
+    e)
+    clear
+    cat << "EOF"
++-------------------------------------------------------------+
+|                         SESSION CLOSED                      |
++-------------------------------------------------------------+
+
+
+EOF
+    exit 0;;
+
+    r) exec "$SCRIPT_PATH";;
+    *) echo "Invalid option."
+       sleep 1
     ;;
 esac
 done
 }
+
 # enter to exit
 ete(){
 echo
-echo "Press Enter to return"
-read -p "" input
+echo "-------------------------------------------------------------"
+read -p "Press Enter to return..." _
 clear
 return
 }
 
 
+dependencies(){
+# Check for figlet
+if ! command -v figlet &> /dev/null; then
+    echo "figlet is not installed."
+    echo -n "Install figlet using Nix? [y/N]: "
+    read response
+    if [[ "$response" =~ ^[yY]$ ]]; then
+        # Check for nix
+        if ! command -v nix-env &> /dev/null; then
+            echo "Nix is not installed."
+            echo -n "Install Nix now? [y/N]: "
+            read response
+            if [[ "$response" =~ ^[yY]$ ]]; then
+                # Install Nix (multi-user installer)
+                sh <(curl -L https://nixos.org/nix/install) --daemon
+                if ! command -v nix-env &> /dev/null; then
+                    echo "Nix installation failed. Please install manually."
+                    exit 1
+                fi
+            else
+                echo "Cannot proceed without Nix. Exiting."
+                exit 1
+            fi
+        fi
+
+        # Install figlet via nix
+        nix-env -iA nixpkgs.figlet
+        if ! command -v figlet &> /dev/null; then
+            echo "figlet installation failed. Please install manually."
+            exit 1
+        else
+            echo "figlet installed successfully!"
+        fi
+    else
+        echo "figlet is required. Exiting."
+        exit 1
+    fi
+fi
+
+}
 
 makemessy(){
     clear
-    echo "Choose messy mode or type back to go back:"
-    echo "1) Mixed file extensions"
-    echo "2) Same extension, varied dates"
+  clear
+cat << "EOF"
++-------------------------------------------------------------+
+|                   MESSY FOLDER GENERATOR                    |
++-------------------------------------------------------------+
+EOF
+
+echo
+echo "Choose a mode or type 'back' to return."
+echo "-------------------------------------------------------------"
+echo "1) Mixed file extensions"
+echo "2) Same extension, varied dates"
+
     read -p "Option: " mode
 
     TARGET="$HOME/Desktop/test_messy"
@@ -117,38 +201,62 @@ EOF
 option1(){
 while true; do
 clear
-echo "Calculator"
-echo "Type "help" for instructions or "back" to return to menu."
+cat << "EOF"
++-------------------------------------------------------------+
+|                        CALCULATOR                           |
++-------------------------------------------------------------+
+EOF
+
 echo
+echo "Type expressions to evaluate. Type 'help' for syntax or 'back' to return."
+echo "-------------------------------------------------------------"
 read -p "Calc> " input
+
 if [[ "$input" == "back" ]]; then
     clear
     return
-elif [[ "$input" == "Help" || "$input" == "help" ]]; then
-    echo "Basic arithmetic: +  -  *  /"
-    echo "Powers: ^"
-    echo "Square root: sqrt(x)"
-    echo "Sine: s(x)   (x in radians)"
-    echo "Cosine: c(x)"
-    echo "Arctangent: a(x)"
-    echo "Natural log: l(x)"
-    echo "Exponential: e(x)"
-    echo
-    read -p "Press Enter when ready to return..." _
+elif [[ "$input" == "help" ]]; then
     clear
+    cat << "EOF"
++-------------------------------------------------------------+
+|                       CALCULATOR HELP                       |
++-------------------------------------------------------------+
+EOF
+    echo
+    echo "Supported operations:"
+    echo "-------------------------------------------------------------"
+    echo "• Basic arithmetic: +  -  *  /"
+    echo "• Powers: ^"
+    echo "• Square root: sqrt(x)"
+    echo "• Trig: s(x) = sin, c(x) = cos, a(x) = arctan"
+    echo "• Logarithm: l(x) = ln(x)"
+    echo "• Exponential: e(x) = exp(x)"
+    echo
+    read -p "Press Enter to return..." _
     continue
 fi
+
 result=$(echo "$input" | bc -l)
+echo "-------------------------------------------------------------"
 echo "Result: $result"
 read -p "Press Enter to continue..." _
-clear
 done
 }
+
 option2(){
 clear
-     echo "This tool will organise items in a directory into subfolders based on file types or date created."
-     echo "Enter "messy" into the menu to create a messy folder on your desktop to test this tool."
-     echo
+  clear
+cat << "EOF"
++-------------------------------------------------------------+
+|                     FILE ORGANIZER                          |
++-------------------------------------------------------------+
+EOF
+
+echo
+echo "Organize files by type or creation date."
+echo "Type 'messy' in the main menu to generate test files."
+echo "-------------------------------------------------------------"
+
     read -p "Enter directory to organize (or type 'back' to cancel): " dir
     if [[ "$dir" == "back" ]]; then
     echo "Cancelled. Returning to menu."
@@ -243,6 +351,35 @@ option3() {
         fi
     done
 }
+option4() {
+    clear
+    cat << "EOF"
++-------------------------------------------------------------+
+|                        ASCII WORD ART                       |
++-------------------------------------------------------------+
+EOF
+    echo
+    echo "Type any word to generate ASCII art using figlet."
+    echo "Type 'font' to change the font or 'back' to go back."
+    echo "-------------------------------------------------------------"
+
+    current_font="standard"   
+    while true; do
+        read -p "ASCII> " input
+        if [[ "$input" == "back" ]]; then
+            clear
+            return
+        elif [[ "$input" == "font" ]]; then
+            echo "Available fonts:"
+            figlist
+            read -p "Enter font name: " fontname
+            current_font="$fontname"
+            echo "Font set to '$current_font'."
+        elif [[ -n "$input" ]]; then
+            figlet -f "$current_font" "$input"
+        fi
+    done
+}
 
 
 
@@ -251,9 +388,17 @@ option3() {
 man() {
     while true; do
         clear
-        echo "man page"
+        clear
+cat << "EOF"
++-------------------------------------------------------------+
+|                        MAN PAGE VIEWER                      |
++-------------------------------------------------------------+
+EOF
 
-        echo
+echo
+echo "Type a command to view its manual. Type 'back' to return."
+echo "-------------------------------------------------------------"
+
         read -p "Command (or type back to exit): " cmd
         if [ "$cmd" == "back" ]; then
             clear
@@ -264,4 +409,5 @@ man() {
     
     
 }
+dependencies
 main
