@@ -4,8 +4,11 @@ A Bash-based multitool with a simple menu interface. Current features include:
 
 - Calculator: Supports arithmetic, powers, square roots, trigonometric functions, logarithms, and exponentials (via `bc -l`).
 - File Organizer: Sorts files in a directory into subfolders by type (Images, Documents, Archives, Music, Videos, Others).
+- ASCII Art Generator
 - Messy Folder Generator: Creates a test folder with mixed file types on your Desktop for organizing practice.
-- Man Page Viewer: Displays manual pages for specified commands.
+- Run Shell Commands: A shell enviroment for running commands.
+- Password generator: A password generator where you cna choose the length of the password
+- File Encryptior: A File encryption system that uses openssl to encrypt files with AES-256-CBC encryption.
 
 ---
 
