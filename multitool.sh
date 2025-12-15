@@ -30,7 +30,7 @@ EOF
         echo "|  [3] Run Shell Commands                                   |"
         echo "|  [4] ASCII Word Art Generator                             |"
         echo "|  [5] Password Generator                                   |"
-        echo "|  [6] File Encryption                                      |"
+        echo "|  [6] File Encryptior                                      |"
         echo "|                                                           |"
         echo "|  [messy] Create Messy Test Folder                         |"
         echo "|                                                           |"
