@@ -1,6 +1,7 @@
 # simpleBashMultitool
 
-A Bash-based multitool with a simple menu interface. Current features include:
+A Bash-based multitool with a simple menu interface. Created for year nine term four personal interest project. 
+Current features include:
 
 - **Calculator**: Supports arithmetic, powers, square roots, trigonometric functions, logarithms, and exponentials (via `bc -l`).
 - **File Organizer**: Sorts files in a directory by type (Images, Documents, Archives, Music, Videos, Others) or by date (year/month).
