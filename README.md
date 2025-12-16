@@ -34,7 +34,7 @@ Current features include:
    ./multitool.sh
    ```
 
-4. **Dependencies**: The script will automatically check for required dependencies (`figlet` and `openssl`) and offer to install them using Nix if they're missing. If you don't have nix, the program will also offer to install it. 
+4. **Dependencies**: The script will automatically check for required dependencies (`figlet` and `openssl`) and offer to install them using Nix if they're missing. If you don't have nix, the program will also offer to install it. You may have to run the program again to install dependencies after installing nix.
 
 #### Creating a macOS Application Bundle (Optional)
 
